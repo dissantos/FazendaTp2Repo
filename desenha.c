@@ -15,7 +15,8 @@ void desenhaGalinhas(){
 				glRotatef(225,0,1,0);
 			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == -1)
 				glRotatef(315,0,1,0);
-				glutWireTeapot(5.0f);
+			glRotatef(-90,1,0,0);
+			glmDraw(modelTeste, GLM_TEXTURE);
 		glPopMatrix();
 	}
 }

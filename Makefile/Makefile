@@ -1,7 +1,7 @@
 CC=gcc
-OPCOES_COMPILADOR=-I. -lglut -lGLU -lGLEW -lGL -lm
-TODOS_ARQUIVOS_PONTOH = coordenadas.h
-TODOS_ARQUIVOS_OBJ = main.o desenha.o estados.o
+OPCOES_COMPILADOR=-I. -lSOIL -lglut -lGLU -lGLEW -lGL -lm
+TODOS_ARQUIVOS_PONTOH = coordenadas.h glm.h glmint.h image_DXT.h image_helper.h variaveisGlobais.h 
+TODOS_ARQUIVOS_OBJ = main.o desenha.o estados.o variaveisGlobais.o glm.o glm_util.o glmimg.o image_DXT.o image_helper.o
 
 %.o: ../%.c $(TODOS_ARQUIVOS_PONTOH)
 	$(CC) -o $@ -c $< $(OPCOES_COMPILADOR)

@@ -1,5 +1,6 @@
 #include "desenha.h"
 #include "estados.h"
+#include "variaveisGlobais.h"
 GLfloat angle, fAspect;
 int keys[255];
 int galinhaAtual = 0;
@@ -42,6 +43,7 @@ void Inicializa (void)
 		if(rand()%2 == 0)
 			galinha[i].posicao.z *= -1;
 	}
+	modelTeste = glmReadOBJ("humanoid_quad.obj");
 }
 
 // Função usada para especificar a posição do observador virtual
@@ -53,7 +55,7 @@ void PosicionaObservador(void)
 	glLoadIdentity();
 	// Especifica posição do observador e do alvo
 	if(modoCamera == 1){
-    	gluLookAt(0,80,1, 0,0,0, 0,1,0);
+    	gluLookAt(-45,80,1, 0,0,0, 0,1,0);
 	}
 	else{
 		gluLookAt(galinha[galinhaAtual].posicao.x - 5,10,galinha[galinhaAtual].posicao.z -5,0,0,0,0,1,0);	
