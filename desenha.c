@@ -16,32 +16,122 @@ void desenhaGalinhas(){
 			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == -1)
 				glRotatef(315,0,1,0);
 			glRotatef(-90,1,0,0);
-			glmDraw(modelTeste, GLM_TEXTURE);
+			glRotatef(-90,0,0,1);
+			glmDraw(galinha[i].model, GLM_TEXTURE);
 		glPopMatrix();
 	}
 }
 
 void desenhaSolo(){
+	GLfloat especularidade[] = {1.0,1.0,1.0,1.0};
+	GLfloat brilho[] = {20.0};
+	GLfloat corBranca[] = {1.0,1.0,1.0,1.0};
+	GLfloat corVerde[] = {0,1,0,1.0};
+	glDisable(GL_COLOR_MATERIAL);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
+    glMaterialfv(GL_FRONT, GL_SHININESS,brilho);
+  	glMaterialfv(GL_FRONT, GL_AMBIENT, corVerde);
+   	glMaterialfv(GL_FRONT, GL_DIFFUSE, corBranca);
+
 	glPushMatrix();
 		glTranslatef(0,-200,0);
 			glColor3f(0,1,0);
-			glBegin(GL_TRIANGLE_FAN);
-				glVertex3f(-300,0,-300);
-				glVertex3f(300,0,-300);
-				glVertex3f(300,0,300);
-				glVertex3f(-300,0,300);
-			glEnd();
+			for(int x = 0; x < 100; x++){
+				for(int z = 0; z < 100; z++){
+					glPushMatrix();
+					glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, idTexturaGrama);
+						glTranslatef(-200,0,200);
+						glBegin(GL_TRIANGLE_STRIP);
+						glTexCoord2f(0,0);
+						glVertex3f(x*5,pontos[x][z],(-z)*5);
+						glTexCoord2f(0,1);
+						glVertex3f((x+1)*5,pontos[x+1][z],(-z)*5);
+						glTexCoord2f(1,1);
+						glVertex3f(x*5,pontos[x][z+1],(-z-1)*5);
+						glTexCoord2f(0,0);
+						glEnd();
+						glDisable(GL_TEXTURE_2D);
+					glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, idTexturaGrama);
+						glBegin(GL_TRIANGLE_STRIP);
+						glTexCoord2f(1,0);
+						glVertex3f((x+1)*5,pontos[x+1][z],(-z)*5);
+						glTexCoord2f(1,1);
+						glVertex3f((x+1)*5,pontos[x+1][z+1],(-z-1)*5);
+						glTexCoord2f(0,1);
+						glVertex3f(x*5,pontos[x][z+1],(-z-1)*5);
+						glEnd();
+						glDisable(GL_TEXTURE);		
+					glPopMatrix();
+				}
+			}
+
 			glColor3f(1,1,0);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, idTexturaTerra);
 			glBegin(GL_TRIANGLE_FAN);
-				glVertex3f(-70,0,-70);
-				glVertex3f(70,0,-70);
-				glVertex3f(70,0,70);
-				glVertex3f(-70,0,70);
+				glTexCoord2f(0,0);
+				glVertex3f(-70,5,-70);
+				glTexCoord2f(0,1);
+				glVertex3f(70,5,-70);
+				glTexCoord2f(1,1);
+				glVertex3f(70,5,70);
+				glTexCoord2f(1,0);
+				glVertex3f(-70,5,70);
 			glEnd();
+			glDisable(GL_TEXTURE);
+			glEnable(GL_COLOR_MATERIAL);
 	glPopMatrix();
 }
 
+void desenhaEstabulo(){
+	glPushMatrix();
+		glTranslatef(estabulo.posicao.x,estabulo.posicao.y,estabulo.posicao.z);
+		glRotated(-90,0,1,0);
+		glColor3f(1,0,0);
+		glScaled(0.1,0.1,0.1);
+		glmDraw(estabulo.model,GLM_TEXTURE);
+	glPopMatrix();
+	
+}
+
+void desenhaCerca(){
+	
+	glPushMatrix();
+		glTranslatef(cerca[0].posicao.x,cerca[0].posicao.y,cerca[0].posicao.z);
+		glRotated(-90,1,0,0);
+		glRotated(90,0,0,1);
+		glScaled(0.6,0.3,0.2);
+		glmDraw(cerca[0].model,GLM_TEXTURE);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(cerca[1].posicao.x,cerca[1].posicao.y,cerca[1].posicao.z);
+		glRotated(-90,1,0,0);
+		glScaled(0.6,0.3,0.2);
+		glmDraw(cerca[1].model,GLM_TEXTURE);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(cerca[2].posicao.x,cerca[2].posicao.y,cerca[2].posicao.z);
+		glRotated(-90,1,0,0);
+		glRotated(90,0,0,1);
+		glScaled(0.6,0.3,0.2);
+		glmDraw(cerca[2].model,GLM_TEXTURE);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(cerca[3].posicao.x,cerca[3].posicao.y,cerca[3].posicao.z);
+		glRotated(-90,1,0,0);
+		glScaled(0.6,0.3,0.2);
+		glmDraw(cerca[3].model,GLM_TEXTURE);
+	glPopMatrix();
+	
+
+}
+
 void desenhaCena(){
+	desenhaEstabulo();
+	desenhaCerca();
 	desenhaSolo();
 	desenhaGalinhas();
+
 }

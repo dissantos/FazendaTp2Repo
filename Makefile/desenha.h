@@ -12,6 +12,8 @@
 
 
 void desenhaGalinhas();
+void desenhaSolo();
 void desenhaCena();
-
+void desenhaEstabulo();
+void desenhaCerca();
 #endif

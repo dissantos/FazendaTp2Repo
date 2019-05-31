@@ -1,6 +1,6 @@
 #ifndef COORDENADAS_H_INCLUDED
 #define COORDENADAS_H_INCLUDED
-
+#include <glm.h>
 typedef struct{
 	double x;
 	double y;
@@ -9,7 +9,9 @@ typedef struct{
 
 typedef struct{
 	COORD posicao;
-	COORD velocidade; 
+	COORD velocidade;
+	GLMmodel *model;
+	int estado;
 	
 }OBJETO;
 
