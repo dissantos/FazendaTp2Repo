@@ -11,6 +11,7 @@ GLMmodel* modelTeste;
 GLMmodel* modelEstabulo;
 GLMmodel* modelCerca;
 int luzEstaLigada;
+int linhasRelevo;
 double pontos[100][100];
 int idTexturaGrama;
 int idTexturaTerra;

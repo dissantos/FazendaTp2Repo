@@ -12,8 +12,8 @@ newmtl 01___Default
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\Leandro\Desktop\MedievalBathroon.fbm\MADEIRA2.tga
-	map_Kd C:\Users\Leandro\Desktop\MedievalBathroon.fbm\MADEIRA2.tga
+	map_Ka MADEIRA2.tga
+	map_Kd MADEIRA2.tga
 
 newmtl Material__46
 	Ns 10.0000
@@ -26,8 +26,8 @@ newmtl Material__46
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\Leandro\Desktop\MedievalBathroon.fbm\4914.jpg
-	map_Kd C:\Users\Leandro\Desktop\MedievalBathroon.fbm\4914.jpg
+	map_Ka 4914.jpg
+	map_Kd 4914.jpg
 
 newmtl Material__72
 	Ns 10.0000
@@ -40,8 +40,8 @@ newmtl Material__72
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\Modelos\Arquitetura\Medieval\MedievalHouse2\MADEIRA3.tga
-	map_Kd E:\Modelos\Arquitetura\Medieval\MedievalHouse2\MADEIRA3.tga
+	map_Ka MADEIRA3.tga
+	map_Kd MADEIRA3.tga
 
 newmtl Material__73
 	Ns 10.0000
@@ -54,5 +54,5 @@ newmtl Material__73
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\Modelos\Arquitetura\Medieval\MedievalHouse2\MADEIRA1.tga
-	map_Kd E:\Modelos\Arquitetura\Medieval\MedievalHouse2\MADEIRA1.tga
+	map_Ka MADEIRA1.tga
+	map_Kd MADEIRA1.tga
