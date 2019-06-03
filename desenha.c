@@ -26,13 +26,19 @@ void desenhaSolo(){
 	GLfloat especularidade[] = {1.0,1.0,1.0,1.0};
 	GLfloat brilho[] = {20.0};
 	GLfloat corBranca[] = {1.0,1.0,1.0,1.0};
-	GLfloat corVerde[] = {0,1,0,1.0};
+	GLfloat corVerde[] = {1,0.5,0,1.0};
 	glDisable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
     glMaterialfv(GL_FRONT, GL_SHININESS,brilho);
   	glMaterialfv(GL_FRONT, GL_AMBIENT, corVerde);
    	glMaterialfv(GL_FRONT, GL_DIFFUSE, corBranca);
-
+	
+	if(linhasRelevo){
+		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	}
+	else{
+		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+	}
 	glPushMatrix();
 		glTranslatef(0,-200,0);
 			glColor3f(0,1,0);
@@ -81,11 +87,12 @@ void desenhaSolo(){
 				glVertex3f(-70,5,70);
 			glEnd();
 			glDisable(GL_TEXTURE);
-			glEnable(GL_COLOR_MATERIAL);
 	glPopMatrix();
+	glEnable(GL_COLOR_MATERIAL);
 }
 
 void desenhaEstabulo(){
+	glDisable(GL_COLOR_MATERIAL);
 	glPushMatrix();
 		glTranslatef(estabulo.posicao.x,estabulo.posicao.y,estabulo.posicao.z);
 		glRotated(-90,0,1,0);
@@ -93,6 +100,7 @@ void desenhaEstabulo(){
 		glScaled(0.1,0.1,0.1);
 		glmDraw(estabulo.model,GLM_TEXTURE);
 	glPopMatrix();
+	glEnable(GL_COLOR_MATERIAL);
 	
 }
 
@@ -129,9 +137,10 @@ void desenhaCerca(){
 }
 
 void desenhaCena(){
+	desenhaSolo();
+	glColor4d(1,1,1,1);
 	desenhaEstabulo();
 	desenhaCerca();
-	desenhaSolo();
 	desenhaGalinhas();
 
 }

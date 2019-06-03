@@ -1,9 +1,6 @@
-//Esse código foi disponibilizado no endereço https://gist.github.com/nowl/828013
+//Fonte: https://gist.github.com/nowl/828013
 
-//Ele gera números pseudo-aleatórios baseados na posição x,y de um ponto, de forma que: dados dois pontos P(x0,y0) e Q(x1,y1), quanto mais x1 se aproximar de x0 e y1 se aproximar de y0, mais próximos
-//serão os valores gerados por esse dois pontos. Eu utilizei a geração desses valores para criar o relevo do nosso mundo(Nathan e José)
-
-
+//agradecimentos: Jose Antonio e Nathan Magno
 #include <stdio.h>
 #include "perlin.h"
 static int SEED = 0;

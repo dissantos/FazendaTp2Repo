@@ -6,8 +6,29 @@ GLfloat angle, fAspect;
 int keys[255];
 int galinhaAtual = 0;
 int modoCamera = 1;
-double horaDoDia = -500;
 float luzVerde = 0;
+int delay = 0;
+
+
+// Função usada para especificar a posição do observador virtual
+void PosicionaObservador(void)
+{
+	// Especifica sistema de coordenadas do modelo
+	glMatrixMode(GL_MODELVIEW);
+	// Inicializa sistema de coordenadas do modelo
+	glLoadIdentity();
+	// Especifica posição do observador e do alvo
+	if(modoCamera == 1){
+    	gluLookAt(0,80,1, 0,0,0, 0,1,0);
+	}
+	else{
+		gluLookAt(galinha[galinhaAtual].posicao.x-30*galinha[galinhaAtual].velocidade.x,-150,galinha[galinhaAtual].posicao.z-30*galinha[galinhaAtual].velocidade.z,
+							galinha[galinhaAtual].posicao.x,-190,galinha[galinhaAtual].posicao.z, 
+							0,1,0);	
+	}
+	
+}
+
 // Função callback chamada para fazer o desenho
 void Desenha(void)
 {
@@ -16,7 +37,7 @@ void Desenha(void)
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glColor3f(0.0f, 0.0f, 1.0f);
-
+	PosicionaObservador();
 	desenhaCena();
 
 	// Executa os comandos OpenGL
@@ -28,7 +49,7 @@ void Inicializa (void)
 { GLfloat luzAmbiente[4]={0.8,0.8,0.8,1.0}; 
 	GLfloat luzDifusa[4]={1,luzVerde,0,1.0};	   // "cor" 
 	GLfloat luzEspecular[4]={1, 1, 1, 1.0};// "brilho" 
-	GLfloat posicaoLuz[4]={horaDoDia, 80.0, 200, 1.0};
+	GLfloat posicaoLuz[4]={0, 80.0, 1, 1.0};
 
 	// Capacidade de brilho do material
 	GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
@@ -36,7 +57,7 @@ void Inicializa (void)
 	//limpa tela
   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	glShadeModel(GL_SMOOTH);
+	glShadeModel(GL_FLAT);
 
 
 	// Ativa o uso da luz ambiente 
@@ -56,6 +77,8 @@ void Inicializa (void)
   
   //controle de ligar ou desligar a luz
   luzEstaLigada = 1;
+  //controle do relevo
+  linhasRelevo = 0;
   
   angle=45;
 	qtdDeGalinhas = 10	;
@@ -77,6 +100,8 @@ void Inicializa (void)
 			galinha[i].posicao.z *= -1;
 		
 		galinha[i].model = glmReadOBJ("humanoid_quad.obj");
+		
+		galinha[i].estado = 1;
 	}
 	
 	for (int i = 0; i < 4; i++){
@@ -124,23 +149,6 @@ void Inicializa (void)
 	gerarRelevo();
 }
 
-// Função usada para especificar a posição do observador virtual
-void PosicionaObservador(void)
-{
-	// Especifica sistema de coordenadas do modelo
-	glMatrixMode(GL_MODELVIEW);
-	// Inicializa sistema de coordenadas do modelo
-	glLoadIdentity();
-	// Especifica posição do observador e do alvo
-	if(modoCamera == 1){
-    	gluLookAt(0,80,1, 0,0,0, 0,1,0);
-	}
-	else{
-		gluLookAt(galinha[galinhaAtual].posicao.x - 5,10,galinha[galinhaAtual].posicao.z -5,0,0,0,0,1,0);	
-	}
-	
-}
-
 // Função usada para especificar o volume de visualização
 void EspecificaParametrosVisualizacao(void)
 {
@@ -182,18 +190,15 @@ void GerenciaMouse(int button, int state, int x, int y)
 			if (angle <= 130) angle += 5;
 		}
 	EspecificaParametrosVisualizacao();
-	glutPostRedisplay();
 }
 void atualiza(){
 	if(keys[27] == 1)
 		exit(0);
 	if(keys['1'] == 1){
 		modoCamera = 1;
-		PosicionaObservador();
 	}
 	if(keys['2'] == 1){
 		modoCamera = 2;
-		PosicionaObservador();
 	}
 	if(keys['L'] == 1 || keys['l'] == 1){
 		if(luzEstaLigada == 1){
@@ -207,24 +212,36 @@ void atualiza(){
 			luzEstaLigada = 1;
 		}
 	}
+	if(keys['R'] == 1 || keys['r'] == 1){
+		linhasRelevo = 1 - linhasRelevo;
+	}
+	if(keys['C'] == 1 || keys['c']){
+		galinhaAtual++;
+		if(galinhaAtual == qtdDeGalinhas)
+			galinhaAtual = 0;
+	}
+
 	//atualiza a luz como o passar do dia
-	GLfloat posicaoLuz[4]={200, 80.0, 400, 1.0};
+
 	GLfloat luzDifusa[4]={1,luzVerde,0,1.0};	   // "cor" 
 	GLfloat incrementoDeLuz = 0.002;
-	horaDoDia += 2 ;
 	luzVerde += incrementoDeLuz;
-	if(horaDoDia == 500)
-		horaDoDia = -500;
 	if(luzVerde <= 0 || luzVerde >= 1)
 		incrementoDeLuz *= -1;
 
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
-	glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
+
+	delay++;
+	if(delay%40 == 0){
+		int posicaoAuxiliar = rand()%qtdDeGalinhas;
+		maquinaDeEstado(&galinha[posicaoAuxiliar],1 - galinha[posicaoAuxiliar].estado);
+	}
 	for(int i = 0; i < qtdDeGalinhas; i++){
-		mover(&galinha[i]);
+		if(galinha[i].estado == 1)
+			mover(&galinha[i]);
 	}
 	glutPostRedisplay();
-	glutTimerFunc(33,atualiza,0);
+	glutTimerFunc(25,atualiza,0);
 }
 
 void teclaPressionada(unsigned char key, int x, int y){
@@ -252,6 +269,8 @@ int main(int argc, char** argv){
 	glutMouseFunc(GerenciaMouse);
 	glutTimerFunc(0,atualiza,0);
 	Inicializa();
+	system("clear");
+	printf("Instrucoes:\nR - Mostrar Relevo\nL - Ligar/Desligar a luz\nBotao Esquerdo/Direito do mouse - Zoom\n1 - Entrar no modo camera em cima\n2 - Entrar no modo terceira pessoa\n C - Mudar a camera terceira pessoa para outra galinha\n");
 
 	glutMainLoop();
 }
