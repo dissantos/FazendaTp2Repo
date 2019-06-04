@@ -13,6 +13,7 @@
 
 void desenhaGalinhas();
 void desenhaSolo();
+void desenharArvore();
 void desenhaCena();
 void desenhaEstabulo();
 void desenhaCerca();

@@ -6,10 +6,17 @@
 OBJETO *galinha;
 OBJETO cerca[4];
 OBJETO estabulo;
+OBJETO *porco;
+OBJETO *arvore;
+OBJETO triforce;
+
 int qtdDeGalinhas;
-GLMmodel* modelTeste;
+int qtdDeArvores;
+int qtdDeArvores;
+
 GLMmodel* modelEstabulo;
 GLMmodel* modelCerca;
+
 int luzEstaLigada;
 int linhasRelevo;
 double pontos[100][100];

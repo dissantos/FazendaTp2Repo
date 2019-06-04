@@ -2,22 +2,37 @@
 #include "coordenadas.h"
 
 
+void desenhaTriforce(){
+	glPushMatrix();
+		glColor3f(1,1,0);
+		glTranslatef(triforce.posicao.x,triforce.posicao.y, triforce.posicao.z);
+		glRotatef(90,1,0,1);
+		glScaled(10,10,10);
+			glmDraw(triforce.model,GL_NONE);
+	glPopMatrix();
+}
+
 void desenhaGalinhas(){
 	glColor3f(0,0,1);
 	for(int i = 0; i < qtdDeGalinhas; i++){
 		glPushMatrix();
 			glTranslatef(galinha[i].posicao.x,galinha[i].posicao.y,galinha[i].posicao.z);
-			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == 1)
+			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == 1){
 				glRotatef(45,0,1,0);
-			if(galinha[i].velocidade.x == -1 && galinha[i].velocidade.z == 1)
+				glRotatef(180,0,1,0);
+			}
+			if(galinha[i].velocidade.x == -1 && galinha[i].velocidade.z == 1){
 				glRotatef(135,0,1,0);
-			if(galinha[i].velocidade.x == -1 && galinha[i].velocidade.z == -1)
+
+			}
+			if(galinha[i].velocidade.x == -1 && galinha[i].velocidade.z == -1){
 				glRotatef(225,0,1,0);
-			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == -1)
+				glRotatef(180,0,1,0);
+			}
+			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == -1){
 				glRotatef(315,0,1,0);
-			glRotatef(-90,1,0,0);
-			glRotatef(-90,0,0,1);
-			glmDraw(galinha[i].model, GLM_TEXTURE);
+			}
+			glmDraw(galinha[i].model, GLM_COLOR);
 		glPopMatrix();
 	}
 }
@@ -87,8 +102,20 @@ void desenhaSolo(){
 				glVertex3f(-70,5,70);
 			glEnd();
 			glDisable(GL_TEXTURE);
+		
 	glPopMatrix();
 	glEnable(GL_COLOR_MATERIAL);
+}
+
+void desenharArvore(){
+	for(int i = 0; i < qtdDeArvores; i++){
+		glPushMatrix();
+			glTranslatef(arvore[i].posicao.x,arvore[i].posicao.y, arvore[i].posicao.z);
+			glScalef(5.f,5.f,5.f);
+				glmDraw(arvore[i].model,GLM_COLOR);
+			
+		glPopMatrix();
+	}
 }
 
 void desenhaEstabulo(){
@@ -138,9 +165,10 @@ void desenhaCerca(){
 
 void desenhaCena(){
 	desenhaSolo();
-	glColor4d(1,1,1,1);
+	desenharArvore();
 	desenhaEstabulo();
 	desenhaCerca();
 	desenhaGalinhas();
+
 
 }

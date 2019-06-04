@@ -3,7 +3,9 @@
 #include "variaveisGlobais.h"
 #include "perlin.h"
 
-float mapear(float numeroInicial, int numeroMinimoInicial,int numeroMaximoInicial,int numeroMinimoFinal,int numeroMaximoFinal);
+float calcularAltura(float numeroInicial,int numeroMinimoFinal,int numeroMaximoFinal);
 void gerarRelevo();
+void gerarArvore();
+
 
 #endif

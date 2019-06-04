@@ -99,10 +99,16 @@ void Inicializa (void)
 		if(rand()%2 == 0)
 			galinha[i].posicao.z *= -1;
 		
-		galinha[i].model = glmReadOBJ("humanoid_quad.obj");
+		galinha[i].model = glmReadOBJ("GALINACEA.obj");
 		
 		galinha[i].estado = 1;
 	}
+	
+	triforce.posicao.x = rand()%100 +100;
+	triforce.posicao.z = rand()%100 + 100;;
+	triforce.posicao.y = -190;
+	triforce.model = glmReadOBJ("triforce.obj");
+	
 	
 	for (int i = 0; i < 4; i++){
 		if(i == 0){
@@ -121,14 +127,20 @@ void Inicializa (void)
 			cerca[i].posicao.x = -50;
 			cerca[i].posicao.z = -70;
 		}
-		cerca[i].posicao.y = -190;
+		cerca[i].posicao.y = -200;
 		cerca[i].model = glmReadOBJ("13078_Wooden_Post_and_Rail_Fence_v1_l3.obj");
 	}
+	
 	estabulo.posicao.x = 105;
 	estabulo.posicao.y = -190;
 	estabulo.posicao.z = 0;
 	estabulo.model = glmReadOBJ("Stable.obj");
 
+	qtdDeArvores = 30;
+	arvore = malloc(sizeof(OBJETO)*qtdDeArvores);
+	for(int i = 0; i < qtdDeArvores; i++){
+		arvore[i].model = glmReadOBJ("arvere1.obj");
+	}
 	
 	idTexturaGrama = SOIL_load_OGL_texture(
         "grama.jpg",
@@ -147,6 +159,34 @@ void Inicializa (void)
 	
 	
 	gerarRelevo();
+	for(int i = 0; i < qtdDeArvores; i++){
+		int x,z;
+		while(1){
+			x = rand()%100+80;
+			z = rand()%100+80;
+			int teste = 1;
+			if(rand()%2 == 0)
+				x *= -1;
+			if(rand()%2 == 0)
+				z *= -1;
+			
+			for(int j = 0; j < i; j++){
+				if(arvore[j].posicao.x == x && arvore[j].posicao.z == z){
+					teste = 0;
+					break;
+				}
+			}
+			if(teste == 1)
+				break;
+		}
+		
+		arvore[i].posicao.y = -190;
+		arvore[i].posicao.x = x;
+		arvore[i].posicao.z = z;
+		printf("x: %d - z: %d\n",x,z);
+		
+	}
+
 }
 
 // Função usada para especificar o volume de visualização
@@ -269,7 +309,7 @@ int main(int argc, char** argv){
 	glutMouseFunc(GerenciaMouse);
 	glutTimerFunc(0,atualiza,0);
 	Inicializa();
-	system("clear");
+	//system("clear");
 	printf("Instrucoes:\nR - Mostrar Relevo\nL - Ligar/Desligar a luz\nBotao Esquerdo/Direito do mouse - Zoom\n1 - Entrar no modo camera em cima\n2 - Entrar no modo terceira pessoa\n C - Mudar a camera terceira pessoa para outra galinha\n");
 
 	glutMainLoop();
