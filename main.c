@@ -80,7 +80,9 @@ void Inicializa (void)
   incrementoDeLuz = 0.02;
   //controle do relevo
   linhasRelevo = 0;
-  
+  //controleFOG --------------------------------------------
+  fogAtivo=0;
+ 
   respiracao = 0;
   //incremento de respiracao dos animais
 	incrementoRespiracao = 0.01;
@@ -230,6 +232,16 @@ void GerenciaMouse(int button, int state, int x, int y)
 	EspecificaParametrosVisualizacao();
 }
 void atualiza(){
+	if ((keys['N'] == 1 || keys['n'] == 1) && modoCamera == 2){
+		if(fogAtivo == 0){
+			desenhaFog();
+		}
+		else {
+			glDisable(GL_FOG);
+			fogAtivo = 0;
+		}
+	}
+	
 	if(keys[27] == 1)
 		exit(0);
 	if(keys['1'] == 1){
