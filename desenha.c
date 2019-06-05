@@ -200,7 +200,7 @@ void desenhaFog(){
  
 	glFogi(GL_FOG_MODE, fogMode[fogfilter]);        // Fog Mode
 	glFogfv(GL_FOG_COLOR, fogColor);            // coloca cor do Fog
-	glFogf(GL_FOG_DENSITY, 0.01f);              // Densidade do fog
+	glFogf(GL_FOG_DENSITY, 0.008f);              // Densidade do fog
 	glHint(GL_FOG_HINT, GL_DONT_CARE);          // Fog Hint Value
 	glFogf(GL_FOG_START, 9.0f);             // Fog Start Depth
 	glFogf(GL_FOG_END, 10.0f);               // Fog End Depth
@@ -219,3 +219,4 @@ void desenhaCena(){
 
 
 }
+
