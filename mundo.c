@@ -16,3 +16,20 @@ void gerarRelevo(){
 	}
 }
 
+void gerarPosicoesDosAnimais(OBJETO *obj){
+		obj->posicao.x = rand()%61;
+		obj->velocidade.x = 1;
+		if(rand()%2 == 0)
+			obj->velocidade.x = -1;
+		if(rand()%2 == 0)
+			obj->posicao.x *= -1;
+		obj->posicao.y = -190;
+		obj->velocidade.y = 2;
+		obj->posicao.z = rand()%61;
+		obj->velocidade.z = 1;
+		if(rand()%2 == 0)
+			obj->velocidade.z = -1;
+		if(rand()%2 == 0)
+			obj->posicao.z *= -1;
+		obj->estado = 1;
+}

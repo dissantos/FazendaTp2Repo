@@ -6,6 +6,7 @@
 float calcularAltura(float numeroInicial,int numeroMinimoFinal,int numeroMaximoFinal);
 void gerarRelevo();
 void gerarArvore();
+void gerarPosicoesDosAnimais(OBJETO *obj);
 
 
 #endif

@@ -6,17 +6,18 @@ void desenhaTriforce(){
 	glPushMatrix();
 		glColor3f(1,1,0);
 		glTranslatef(triforce.posicao.x,triforce.posicao.y, triforce.posicao.z);
-		glRotatef(90,1,0,1);
-		glScaled(10,10,10);
+		glRotatef(anguloDeRotacao,1,0,1);
+		glScaled(5,5,5);
 			glmDraw(triforce.model,GL_NONE);
 	glPopMatrix();
 }
 
 void desenhaGalinhas(){
-	glColor3f(0,0,1);
+	glColor3f(1,1,1);
 	for(int i = 0; i < qtdDeGalinhas; i++){
 		glPushMatrix();
 			glTranslatef(galinha[i].posicao.x,galinha[i].posicao.y,galinha[i].posicao.z);
+			glScaled(1+respiracao,1+respiracao,1+respiracao);
 			if(galinha[i].velocidade.x == 1 && galinha[i].velocidade.z == 1){
 				glRotatef(45,0,1,0);
 				glRotatef(180,0,1,0);
@@ -33,6 +34,31 @@ void desenhaGalinhas(){
 				glRotatef(315,0,1,0);
 			}
 			glmDraw(galinha[i].model, GLM_COLOR);
+		glPopMatrix();
+	}
+}
+
+void desenharPorco(){
+	for(int i = 0; i < qtdDePorco; i++){
+		glPushMatrix();
+			glTranslatef(porco[i].posicao.x,porco[i].posicao.y,porco[i].posicao.z);
+			glScaled(0.75+respiracao,0.75+respiracao,0.75+respiracao	);	
+			if(porco[i].velocidade.x == 1 && porco[i].velocidade.z == 1){
+				glRotatef(45,0,1,0);
+				glRotatef(180,0,1,0);
+			}
+			if(porco[i].velocidade.x == -1 && porco[i].velocidade.z == 1){
+				glRotatef(135,0,1,0);
+
+			}
+			if(porco[i].velocidade.x == -1 && porco[i].velocidade.z == -1){
+				glRotatef(225,0,1,0);
+				glRotatef(180,0,1,0);
+			}
+			if(porco[i].velocidade.x == 1 && porco[i].velocidade.z == -1){
+				glRotatef(315,0,1,0);
+			}
+			glmDraw(porco[i].model, GLM_COLOR);
 		glPopMatrix();
 	}
 }
@@ -164,11 +190,13 @@ void desenhaCerca(){
 }
 
 void desenhaCena(){
+	desenhaTriforce();
 	desenhaSolo();
 	desenharArvore();
 	desenhaEstabulo();
 	desenhaCerca();
 	desenhaGalinhas();
+	desenharPorco();
 
 
 }

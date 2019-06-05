@@ -12,6 +12,7 @@
 
 
 void desenhaGalinhas();
+void desenharPorco();
 void desenhaSolo();
 void desenharArvore();
 void desenhaCena();

@@ -49,7 +49,7 @@ void Inicializa (void)
 { GLfloat luzAmbiente[4]={0.8,0.8,0.8,1.0}; 
 	GLfloat luzDifusa[4]={1,luzVerde,0,1.0};	   // "cor" 
 	GLfloat luzEspecular[4]={1, 1, 1, 1.0};// "brilho" 
-	GLfloat posicaoLuz[4]={0, 80.0, 1, 1.0};
+	GLfloat posicaoLuz[4]={0, 80.0, 400, 1.0};
 
 	// Capacidade de brilho do material
 	GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
@@ -77,38 +77,36 @@ void Inicializa (void)
   
   //controle de ligar ou desligar a luz
   luzEstaLigada = 1;
+  incrementoDeLuz = 0.02;
   //controle do relevo
   linhasRelevo = 0;
+  
+  respiracao = 0;
+  //incremento de respiracao dos animais
+	incrementoRespiracao = 0.01;
   
   angle=45;
 	qtdDeGalinhas = 10	;
 	galinha = malloc(sizeof(OBJETO)*qtdDeGalinhas);
 	for(int i = 0; i < qtdDeGalinhas; i++){
-		galinha[i].posicao.x = rand()%71;
-		galinha[i].velocidade.x = 1;
-		if(rand()%2 == 0)
-			galinha[i].velocidade.x = -1;
-		if(rand()%2 == 0)
-			galinha[i].posicao.x *= -1;
-		galinha[i].posicao.y = -190;
-		galinha[i].velocidade.y = 2;
-		galinha[i].posicao.z = rand()%71;
-		galinha[i].velocidade.z = 1;
-		if(rand()%2 == 0)
-			galinha[i].velocidade.z = -1;
-		if(rand()%2 == 0)
-			galinha[i].posicao.z *= -1;
 		
+		gerarPosicoesDosAnimais(&galinha[i]);
 		galinha[i].model = glmReadOBJ("GALINACEA.obj");
 		
-		galinha[i].estado = 1;
 	}
 	
-	triforce.posicao.x = rand()%100 +100;
-	triforce.posicao.z = rand()%100 + 100;;
+	qtdDePorco = 4;
+	porco = malloc(sizeof(OBJETO)*qtdDePorco);
+	for(int i = 0; i < qtdDePorco;i++){
+		gerarPosicoesDosAnimais(&porco[i]);
+		porco[i].model = glmReadOBJ("pigpronto.obj");
+	}
+	
+	triforce.posicao.x = 200;
+	triforce.posicao.z = -250;
 	triforce.posicao.y = -190;
 	triforce.model = glmReadOBJ("triforce.obj");
-	
+	anguloDeRotacao = 0;
 	
 	for (int i = 0; i < 4; i++){
 		if(i == 0){
@@ -264,22 +262,35 @@ void atualiza(){
 	//atualiza a luz como o passar do dia
 
 	GLfloat luzDifusa[4]={1,luzVerde,0,1.0};	   // "cor" 
-	GLfloat incrementoDeLuz = 0.002;
+	
 	luzVerde += incrementoDeLuz;
 	if(luzVerde <= 0 || luzVerde >= 1)
 		incrementoDeLuz *= -1;
 
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
+	
+	respiracao += incrementoRespiracao;
+	if(respiracao <= 0 || respiracao >= 0.1)
+		incrementoRespiracao*=-1;
 
 	delay++;
 	if(delay%40 == 0){
 		int posicaoAuxiliar = rand()%qtdDeGalinhas;
 		maquinaDeEstado(&galinha[posicaoAuxiliar],1 - galinha[posicaoAuxiliar].estado);
 	}
+	
+	
+	
 	for(int i = 0; i < qtdDeGalinhas; i++){
 		if(galinha[i].estado == 1)
 			mover(&galinha[i]);
 	}
+	
+	for(int i = 0; i < qtdDePorco; i++){
+			mover(&porco[i]);
+	}
+	
+	anguloDeRotacao+=5;
 	glutPostRedisplay();
 	glutTimerFunc(25,atualiza,0);
 }

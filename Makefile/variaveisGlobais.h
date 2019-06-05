@@ -12,6 +12,7 @@ OBJETO triforce;
 
 int qtdDeGalinhas;
 int qtdDeArvores;
+int qtdDePorco;
 int qtdDeArvores;
 
 GLMmodel* modelEstabulo;
@@ -19,6 +20,10 @@ GLMmodel* modelCerca;
 
 int luzEstaLigada;
 int linhasRelevo;
+int anguloDeRotacao;
+double respiracao;
+double incrementoRespiracao;
+GLfloat incrementoDeLuz;
 double pontos[100][100];
 int idTexturaGrama;
 int idTexturaTerra;
