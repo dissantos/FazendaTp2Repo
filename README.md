@@ -32,11 +32,17 @@ Com isto instalado, abra o terminal na pasta do Makefile e digite make run.
 As instruções do jogo estão apresentadas no terminal.
 
 Agradecimentos:
+
 José Antônio 
+
 Nathan Magno
+
 Ana Maria
+
 Nathã Paulino
+
 Renan Siman
+
 Professora Isabel Harb Manssour(PUCRS) - pela base da main.c
 
 
