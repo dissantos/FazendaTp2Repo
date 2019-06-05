@@ -27,6 +27,6 @@ GLfloat incrementoDeLuz;
 double pontos[100][100];
 int idTexturaGrama;
 int idTexturaTerra;
-
+int fogAtivo;
 
 #endif
