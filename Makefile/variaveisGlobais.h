@@ -29,6 +29,11 @@ GLfloat incrementoDeLuz;
 double pontos[100][100];
 int idTexturaGrama;
 int idTexturaTerra;
+idTexturaSkySky;
+idTexturaSky1;
+idTexturaSky4;
+idTexturaSky2;
+idTexturaSky11;
 int fogAtivo;
 
 #endif

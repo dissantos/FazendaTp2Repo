@@ -234,6 +234,73 @@ void desenhaFog(){
 	fogAtivo = 1;
 }
 
+void desenhaFakeSkyBox(double DimSky){
+	glPushMatrix();
+	//glRotatef(45,0,1,0);
+	glRotatef(180,1,0,0);
+	glRotatef(180,0,0,1);
+	glColor3f(1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, idTexturaSkySky);
+	glBegin(GL_QUADS);
+		//superior
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-DimSky,  DimSky, -DimSky);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-DimSky,  DimSky,  DimSky);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( DimSky,  DimSky,  DimSky);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( DimSky,  DimSky, -DimSky);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glColor3f(1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, idTexturaSky1);
+	glBegin(GL_QUADS);
+		// Face frontal
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-DimSky, -DimSky, -DimSky);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-DimSky,  DimSky, -DimSky);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( DimSky,  DimSky, -DimSky);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( DimSky, -DimSky, -DimSky);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glColor3f(1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, idTexturaSky4);
+	glBegin(GL_QUADS);
+		// Face lateral esquerda
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( DimSky, -DimSky, -DimSky);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( DimSky,  DimSky, -DimSky);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( DimSky,  DimSky,  DimSky);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( DimSky, -DimSky,  DimSky);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glColor3f(1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, idTexturaSky2);
+	glBegin(GL_QUADS);
+		// Face lateral direita
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-DimSky, -DimSky, -DimSky);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-DimSky, -DimSky,  DimSky);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-DimSky,  DimSky,  DimSky);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-DimSky,  DimSky, -DimSky);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glColor3f(1,1,1); //DEFINE A COR: BRANCA
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, idTexturaSky11);
+		glBegin(GL_QUADS);
+			//Face Posterior
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-DimSky, -DimSky,  DimSky);
+			glTexCoord2f(1.0f, 0.0f); glVertex3f( DimSky, -DimSky,  DimSky);
+			glTexCoord2f(1.0f, 1.0f); glVertex3f( DimSky,  DimSky,  DimSky);
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-DimSky,  DimSky,  DimSky);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+}
+
 void desenhaCena(){
 	desenhaTriforce();
 	desenhaSolo();
@@ -243,5 +310,5 @@ void desenhaCena(){
 	desenhaGalinhas();
 	desenharPorco();
 	desenharPorcoPai();
-
+	desenhaFakeSkyBox(400);
 }

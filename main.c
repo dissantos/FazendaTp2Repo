@@ -2,6 +2,9 @@
 #include "estados.h"
 #include "variaveisGlobais.h"
 #include "mundo.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
+
 GLfloat angle, fAspect;
 int keys[255];
 int galinhaAtual = 0;
@@ -9,6 +12,7 @@ int modoCamera = 1;
 float luzVerde = 0;
 int delay = 0;
 
+void iniciarMusica(char const nome[40], int loop);
 
 // Função usada para especificar a posição do observador virtual
 void PosicionaObservador(void)
@@ -50,6 +54,9 @@ void Inicializa (void)
 	GLfloat luzDifusa[4]={1,luzVerde,0,1.0};	   // "cor" 
 	GLfloat luzEspecular[4]={1, 1, 1, 1.0};// "brilho" 
 	GLfloat posicaoLuz[4]={0, 80.0, 400, 1.0};
+
+	//Musica----------------
+	iniciarMusica("musicas/farmSound.ogg",-1);
 
 	// Capacidade de brilho do material
 	GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
@@ -164,6 +171,37 @@ void Inicializa (void)
 		SOIL_FLAG_INVERT_Y
 	);
 	
+	idTexturaSkySky = SOIL_load_OGL_texture(
+        "TexturasSky/skybox_forest_medow_5.jpg",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+	);
+	idTexturaSky1 = SOIL_load_OGL_texture(
+        "TexturasSky/skybox_forest_medow_1.jpg",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+	);
+	idTexturaSky4 = SOIL_load_OGL_texture(
+        "TexturasSky/skybox_forest_medow_4.jpg",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+	);
+	idTexturaSky2 = SOIL_load_OGL_texture(
+        "TexturasSky/skybox_forest_medow_2.jpg",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+	);
+	idTexturaSky11 = SOIL_load_OGL_texture(
+        "TexturasSky/skybox_forest_medow_11.jpg",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+	);
+
 	gerarRelevo();
 	for(int i = 0; i < qtdDeArvores; i++){
 		int x,z;
@@ -189,7 +227,6 @@ void Inicializa (void)
 		arvore[i].posicao.y = -190;
 		arvore[i].posicao.x = x;
 		arvore[i].posicao.z = z;
-		printf("x: %d - z: %d\n",x,z);
 		
 	}
 
@@ -326,6 +363,40 @@ void teclaLiberada(unsigned char key, int x, int y){
 	// se personagem solta a tecla mudar vetor teclas para 0
 }
 
+//Coloca musica na fazenda
+void iniciarMusica(char const nome[40], int loop){
+    Mix_Chunk *som = NULL;
+    int canal;
+
+   	int canal_audio=2;
+      int taxa_audio = 22050;
+      Uint16 formato_audio = AUDIO_S16SYS;
+      int audio_buffers = 4096;
+      
+			if(Mix_OpenAudio(taxa_audio, formato_audio, canal_audio, audio_buffers) != 0) {
+          printf("Não pode inicializar audio 1: %s\n", Mix_GetError());
+        }
+       
+			som = Mix_LoadWAV(nome);
+      
+			if(som == NULL) {
+        printf("Não pode inicializar audio 2: %s\n", Mix_GetError());
+      }
+      
+			Mix_HaltChannel(-1);
+      canal = Mix_PlayChannel( -1, som, loop);
+      
+			if(canal == -1) {
+        printf("Não pode inicializar audio 3: %s\n", Mix_GetError());
+      }
+
+}
+
+void pararMusica(){	//Para com a musiquinha irritante
+	Mix_HaltChannel(-1);
+}
+
+
 // Programa Principal
 int main(int argc, char** argv){
 	glutInit(&argc, argv);
@@ -342,8 +413,8 @@ int main(int argc, char** argv){
 	glutMouseFunc(GerenciaMouse);
 	glutTimerFunc(0,atualiza,0);
 	Inicializa();
-	//system("clear");
-	printf("Instrucoes:\nR - Mostrar Relevo\nL - Ligar/Desligar a luz\nBotao Esquerdo/Direito do mouse - Zoom\n1 - Entrar no modo camera em cima\n2 - Entrar no modo terceira pessoa\n C - Mudar a camera terceira pessoa para outra galinha\n");
+	system("clear");
+	printf("Instrucoes:\nR - Mostrar Relevo\nL - Ligar/Desligar a luz\nN - Ativar/Desativar Neblina\nEsc - Sair\nBotao Esquerdo/Direito do mouse - Zoom\n1 - Entrar no modo camera em cima\n2 - Entrar no modo terceira pessoa\n C - Mudar a camera terceira pessoa para outra galinha\n");
 
 	glutMainLoop();
 }

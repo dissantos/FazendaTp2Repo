@@ -1,7 +1,6 @@
 #include "estados.h"
 
 void maquinaDeEstado(OBJETO *obj,int estado){
-	printf("estado: %d\n",estado);
 	obj->estado = estado;
 	switch(estado){
 		case 0:

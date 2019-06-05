@@ -20,5 +20,6 @@ void desenhaEstabulo();
 void desenhaCerca();
 void desenhaFog();
 void desenharPorcoPai();
+void desenhaFakeSkyBox(double DimSky);
 
 #endif
