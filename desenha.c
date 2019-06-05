@@ -189,6 +189,25 @@ void desenhaCerca(){
 
 }
 
+//http://nehe.gamedev.net/tutorial/cool_looking_fog/19001/
+//faz o fogfog
+void desenhaFog(){
+	GLuint filter;                      // Which Filter To Use
+	GLuint fogMode[]= { GL_EXP, GL_EXP2, GL_LINEAR };   // os tres tipos de Fog
+	GLuint fogfilter= 0;                    // Fog a ser utilizado
+	GLfloat fogColor[4]= {0.2f, 1.0f, 0.5f, 1.0f};      // cor do Fog
+	glClearColor(0.2f,1.0f,0.5f,1.0f);          
+ 
+	glFogi(GL_FOG_MODE, fogMode[fogfilter]);        // Fog Mode
+	glFogfv(GL_FOG_COLOR, fogColor);            // coloca cor do Fog
+	glFogf(GL_FOG_DENSITY, 0.005f);              // Densidade do fog
+	glHint(GL_FOG_HINT, GL_DONT_CARE);          // Fog Hint Value
+	glFogf(GL_FOG_START, 4.0f);             // Fog Start Depth
+	glFogf(GL_FOG_END, 5.0f);               // Fog End Depth
+	glEnable(GL_FOG);                   // Habilita GL_FOG
+	fogAtivo = 1;
+}
+
 void desenhaCena(){
 	desenhaTriforce();
 	desenhaSolo();
