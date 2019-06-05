@@ -18,4 +18,5 @@ void desenharArvore();
 void desenhaCena();
 void desenhaEstabulo();
 void desenhaCerca();
+void desenhaFog();
 #endif
