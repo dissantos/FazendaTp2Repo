@@ -19,5 +19,6 @@ void desenhaCena();
 void desenhaEstabulo();
 void desenhaCerca();
 void desenhaFog();
+void desenharPorcoPai();
 
 #endif

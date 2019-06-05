@@ -9,11 +9,13 @@ OBJETO estabulo;
 OBJETO *porco;
 OBJETO *arvore;
 OBJETO triforce;
+OBJETO *porcoPai;
 
 int qtdDeGalinhas;
 int qtdDeArvores;
 int qtdDePorco;
 int qtdDeArvores;
+int qtdDePorcoPai;
 
 GLMmodel* modelEstabulo;
 GLMmodel* modelCerca;

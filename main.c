@@ -105,6 +105,13 @@ void Inicializa (void)
 		porco[i].model = glmReadOBJ("pigpronto.obj");
 	}
 	
+	qtdDePorcoPai = 3;
+	porcoPai = malloc(sizeof(OBJETO)*qtdDePorcoPai);
+	for(int i = 0; i < qtdDePorcoPai;i++){
+		gerarPosicoesDosAnimais(&porcoPai[i]);
+		porcoPai[i].model = glmReadOBJ("pigpai.obj");
+	}
+
 	triforce.posicao.x = 200;
 	triforce.posicao.z = -250;
 	triforce.posicao.y = -190;
@@ -156,8 +163,6 @@ void Inicializa (void)
         SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_INVERT_Y
 	);
-	
-	
 	
 	gerarRelevo();
 	for(int i = 0; i < qtdDeArvores; i++){
@@ -303,6 +308,10 @@ void atualiza(){
 			mover(&porco[i]);
 	}
 	
+	for(int i = 0; i < qtdDePorcoPai; i++){
+			mover(&porcoPai[i]);
+	}
+
 	anguloDeRotacao+=5;
 	glutPostRedisplay();
 	glutTimerFunc(25,atualiza,0);
