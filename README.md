@@ -6,16 +6,27 @@ Fazenda é um projeto desenvolvido na Disciplina de Computação Gráfica do cur
 
 Considerações:
 Para compilar o programa serão necessárias a instalação de algumas bibliotecas. Para isso é necessário os seguintes comandos no terminal do Ubuntu:
+
 sudo apt-get update 
-sudo apt-get install build-essential
+
+sudo apt-get install build-essentialibglew-dev
+
 sudo apt-get install freeglut3 
+
 sudo apt-get install freeglut3-dev
+
 sudo apt-get install libglew-dev
+
 sudo apt install libsdl1.2-dev 
+
 sudo apt install libsdl-image1.2-dev 
-sudo apt install libsdl-mixer1.2-dev 
+
+sudo apt install libsdl-mixer1.2-dev
+
 sudo apt install libsdl-ttf2.0-dev
+
 sudo apt install libsoil-dev
+
 
 Com isto instalado, abra o terminal na pasta do Makefile e digite make run.
 As instruções do jogo estão apresentadas no terminal.
