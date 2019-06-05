@@ -80,9 +80,10 @@ void Inicializa (void)
   incrementoDeLuz = 0.02;
   //controle do relevo
   linhasRelevo = 0;
-  //controleFOG --------------------------------------------
-  fogAtivo=0;
- 
+	
+	//controleFOG --------------------------------------------
+	fogAtivo=0;
+  
   respiracao = 0;
   //incremento de respiracao dos animais
 	incrementoRespiracao = 0.01;
@@ -241,7 +242,7 @@ void atualiza(){
 			fogAtivo = 0;
 		}
 	}
-	
+
 	if(keys[27] == 1)
 		exit(0);
 	if(keys['1'] == 1){
@@ -337,3 +338,4 @@ int main(int argc, char** argv){
 
 	glutMainLoop();
 }
+
