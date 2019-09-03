@@ -1,6 +1,6 @@
-Trabalho pratico 2 de CG
+# Trabalho pratico 2 de CG
 
-Autores: Diego Santos e Mariana Santos
+## Autores: Diego Santos e Mariana Santos
 
 Fazenda é um projeto desenvolvido na Disciplina de Computação Gráfica do curso de Engenharia de Computação do CEFET-MG ministrada pelo professor Flávio Coutinho. O objetivo do projeto foi a aplicação dos conceitos apendidos em sala de aula na segunda parte da matéria, sendo, portanto um cena em três dimensões bem simples.
 
